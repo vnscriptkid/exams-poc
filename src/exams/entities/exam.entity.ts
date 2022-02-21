@@ -1,3 +1,4 @@
+import { ExamSchedule } from './../../exam-schedules/entities/exam-schedule.entity';
 import {
   Column,
   CreateDateColumn,
@@ -5,6 +6,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -183,4 +185,7 @@ export class Exam {
 
   @OneToMany(() => Exam, (exam) => exam.linkedExam)
   linkedFromExams: Exam[];
+
+  @OneToOne(() => ExamSchedule, (examSchedule) => examSchedule.exam)
+  examSchedule: ExamSchedule;
 }

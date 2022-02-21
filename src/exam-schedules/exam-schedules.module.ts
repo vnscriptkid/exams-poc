@@ -4,6 +4,6 @@ import { ExamSchedulesService } from './exam-schedules.service';
 
 @Module({
   controllers: [ExamSchedulesController],
-  providers: [ExamSchedulesService]
+  providers: [ExamSchedulesService],
 })
 export class ExamSchedulesModule {}

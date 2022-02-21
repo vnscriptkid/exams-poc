@@ -1,3 +1,5 @@
+import { ExamSchedule } from './exam-schedules/entities/exam-schedule.entity';
+import { RoomBooking } from './room-bookings/entities/room-booking.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -18,7 +20,7 @@ import { Exam } from './exams/entities/exam.entity';
       password: '123456',
       database: 'exams',
       synchronize: true,
-      entities: [Exam],
+      entities: [Exam, RoomBooking, ExamSchedule],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     ExamsModule,
