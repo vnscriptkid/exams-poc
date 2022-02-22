@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 import { ExamsService } from './exams.service';
 
 @Controller('exams')
@@ -11,10 +12,11 @@ export class ExamsController {
   }
 
   @Get()
-  async getExams() {
+  async getExams(@CurrentUser() user: any) {
     // take orgId from jwt token
-    const organizationId = '61a62dfeed7de1002347c8a1';
 
-    return await this.examService.findAllByOrgQuery(organizationId).getMany();
+    return await this.examService
+      .findAllByOrgQuery(user.organizationId)
+      .getMany();
   }
 }

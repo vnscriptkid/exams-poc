@@ -9,6 +9,7 @@ import { RoomBookingsModule } from './room-bookings/room-bookings.module';
 import { ExamSchedulesModule } from './exam-schedules/exam-schedules.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Exam } from './exams/entities/exam.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Exam } from './exams/entities/exam.entity';
     ExamsModule,
     RoomBookingsModule,
     ExamSchedulesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
