@@ -13,8 +13,6 @@ export class ExamsController {
 
   @Get()
   async getExams(@CurrentUser() user: any) {
-    // take orgId from jwt token
-
     return await this.examService
       .findAllByOrgQuery(user.organizationId)
       .getMany();

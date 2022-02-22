@@ -10,7 +10,9 @@ export class ExamsService {
   ) {}
 
   findById(id: number) {
-    return this.examRepository.findOne(id, { relations: ['children'] });
+    return this.examRepository.findOne(id, {
+      relations: ['children', 'priorities'],
+    });
   }
 
   findAllByOrgId(organizationId: string) {

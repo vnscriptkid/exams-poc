@@ -1,3 +1,4 @@
+import { Priority } from './exams/entities/priority.entity';
 import { ExamSchedule } from './exam-schedules/entities/exam-schedule.entity';
 import { RoomBooking } from './room-bookings/entities/room-booking.entity';
 import { Module } from '@nestjs/common';
@@ -21,7 +22,7 @@ import { AuthModule } from './auth/auth.module';
       password: '123456',
       database: 'exams',
       synchronize: true,
-      entities: [Exam, RoomBooking, ExamSchedule],
+      entities: [Exam, RoomBooking, ExamSchedule, Priority],
       namingStrategy: new SnakeNamingStrategy(),
       logging: true,
     }),

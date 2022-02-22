@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Priority } from './priority.entity';
 
 @Entity('exams')
 export class Exam {
@@ -188,4 +189,7 @@ export class Exam {
 
   @OneToOne(() => ExamSchedule, (examSchedule) => examSchedule.exam)
   examSchedule: ExamSchedule;
+
+  @OneToMany(() => Priority, (priority) => priority.exam, { nullable: true })
+  priorities: Priority[];
 }
