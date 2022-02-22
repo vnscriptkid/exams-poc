@@ -1,5 +1,12 @@
 import { ExamSchedule } from './../../exam-schedules/entities/exam-schedule.entity';
-import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import {
+  AfterLoad,
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { Priority } from './priority.entity';
 import { BaseAppEntity } from 'src/common/base.entity';
 
@@ -59,8 +66,11 @@ export class Exam extends BaseAppEntity {
   @Column({ default: 'not_published' })
   publicationStatus: string;
 
-  @Column({ nullable: true, type: 'timestamp' })
-  publicationDate: Date;
+  // @Column({ nullable: true, type: 'timestamp' })
+  // publicationDate: Date;
+
+  @Column({ nullable: true })
+  publicationDate: number;
 
   @Column({ nullable: true })
   publicationUserId: string;
@@ -68,14 +78,20 @@ export class Exam extends BaseAppEntity {
   @Column({ nullable: true })
   publicationBookingId: string;
 
-  @Column({ nullable: true, type: 'timestamp' })
-  completedSchedulingTime: Date;
+  // @Column({ nullable: true, type: 'timestamp' })
+  // completedSchedulingTime: Date;
+
+  @Column({ nullable: true })
+  completedSchedulingTime: number;
 
   @Column({ nullable: true })
   externalReference: string;
 
-  @Column({ nullable: true, type: 'timestamp' })
-  cancelledAt: Date;
+  // @Column({ nullable: true, type: 'timestamp' })
+  // cancelledAt: Date;
+
+  @Column({ nullable: true })
+  cancelledAt: number;
 
   @Column({ default: 0 })
   studentsAttended: number;
@@ -147,6 +163,10 @@ export class Exam extends BaseAppEntity {
   originCoreReservationData: object;
 
   // RELATIONSHIP FIELDS
+  @Column({ nullable: true })
+  parentId: number;
+
+  // We don't really need to populate this, just need parent_id
   @ManyToOne(() => Exam, (exam) => exam.children, { nullable: true })
   parent: Exam;
 
@@ -164,4 +184,11 @@ export class Exam extends BaseAppEntity {
 
   @OneToMany(() => Priority, (priority) => priority.exam)
   priorities: Priority[];
+
+  // CALCULATED FIELDS
+  @AfterLoad()
+  addComputedFields() {
+    const self = this as any;
+    console.log({ self });
+  }
 }
