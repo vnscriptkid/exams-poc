@@ -38,24 +38,21 @@ export class ExamsService {
     });
   }
 
-  findAllByOrgQuery(organizationId: string) {
-    return this.examRepository
-      .createQueryBuilder('e')
-      .where('e.organization_id = :organizationId', { organizationId })
-      .andWhere('e.parent_id is NULL') // parent exam || single exam
-      .leftJoinAndSelect('e.linkedFromExams', 'l')
-      .leftJoinAndSelect('e.children', 'e2')
-      .leftJoinAndSelect('e2.examSchedule', 'childExamSchedule')
-      .leftJoinAndSelect('e.examSchedule', 'examSchedule')
-      .take(100)
-      .printSql();
+  findAllByOrgWithScheduling(organizationId: string) {
+    return this.findExamsWithSchedulingQuery(organizationId).getMany();
   }
 
   findOneWithScheduling(examId: number, organizationId: string) {
+    return this.findExamsWithSchedulingQuery(organizationId, examId).getOne();
+  }
+
+  findExamsWithSchedulingQuery(organizationId: string, examId?: number) {
+    let qb = this.examRepository.createQueryBuilder('e');
+
+    if (examId) qb.where('e.id = :examId', { examId });
+
     return (
-      this.examRepository
-        .createQueryBuilder('e')
-        .where('e.id = :examId', { examId })
+      qb
         .andWhere('e.organization_id = :organizationId', { organizationId })
         .leftJoinAndSelect('e.linkedFromExams', 'l')
         .leftJoinAndSelect('e.children', 'e2')
@@ -65,7 +62,6 @@ export class ExamsService {
         .leftJoinAndSelect('e.examSchedule', 'examSchedule')
         .leftJoinAndSelect('examSchedule.roomBooking', 'roomBooking')
         .printSql()
-        .getOne()
     );
   }
 }

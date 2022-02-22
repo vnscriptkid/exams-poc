@@ -15,10 +15,11 @@ export class ExamsController {
   }
 
   @Get()
+  @Serialize(ExamDto)
   async getExams(@CurrentUser() user: any) {
-    const exams = await this.examService
-      .findAllByOrgQuery(user.organizationId)
-      .getMany();
+    const exams = await this.examService.findAllByOrgWithScheduling(
+      user.organizationId,
+    );
 
     // const examIds = exams.map((e) => (e.dataValues || e).id);
 
