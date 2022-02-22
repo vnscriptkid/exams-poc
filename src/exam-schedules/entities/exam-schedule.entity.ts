@@ -2,26 +2,28 @@ import { BaseAppEntity } from 'src/common/base.entity';
 import { Exam } from 'src/exams/entities/exam.entity';
 import { RoomBooking } from 'src/room-bookings/entities/room-booking.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-
 @Entity('exam_schedules')
 export class ExamSchedule extends BaseAppEntity {
   @Column()
   occupied_capacity: number;
 
-  @Column({ type: 'timestamp' })
-  date: Date;
+  // @Column({ type: 'timestamp' })
+  // date: Date;
+
+  @Column({ nullable: true })
+  date: number;
 
   @Column()
-  start_time: number; // number of millis since start of day
+  startTime: number; // number of millis since start of day
 
   @Column()
-  end_time: number;
+  endTime: number;
 
   @Column()
-  start_seat_no: number;
+  startSeatNo: number;
 
   @Column()
-  end_seat_no: number;
+  endSeatNo: number;
 
   // RELATIONSHIP FIELDS
   @OneToOne(() => Exam, (exam) => exam.examSchedule)

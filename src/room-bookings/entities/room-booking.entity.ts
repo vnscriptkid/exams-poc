@@ -7,8 +7,11 @@ export class RoomBooking extends BaseAppEntity {
   @Column()
   organizationId: string;
 
-  @Column({ type: 'timestamp' })
-  date: Date;
+  // @Column({ type: 'timestamp' })
+  // date: Date;
+
+  @Column({ nullable: true })
+  date: number;
 
   @Column()
   roomId: number; // PK
