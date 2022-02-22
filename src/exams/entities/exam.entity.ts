@@ -1,22 +1,10 @@
 import { ExamSchedule } from './../../exam-schedules/entities/exam-schedule.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Priority } from './priority.entity';
+import { BaseAppEntity } from 'src/common/base.entity';
 
 @Entity('exams')
-export class Exam {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Exam extends BaseAppEntity {
   @Column()
   organizationId: string;
 
@@ -157,22 +145,6 @@ export class Exam {
 
   @Column({ nullable: true, type: 'json' })
   originCoreReservationData: object;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  updatedAt: Date;
-
-  @DeleteDateColumn({ type: 'timestamp' })
-  deletedAt?: Date;
 
   // RELATIONSHIP FIELDS
   @ManyToOne(() => Exam, (exam) => exam.children, { nullable: true })

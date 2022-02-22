@@ -1,35 +1,9 @@
 import { ExamSchedule } from './../../exam-schedules/entities/exam-schedule.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { BaseAppEntity } from 'src/common/base.entity';
 
 @Entity('room_bookings')
-export class RoomBooking {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  updatedAt: Date;
-
-  @DeleteDateColumn({ type: 'timestamp' })
-  deletedAt?: Date;
-
+export class RoomBooking extends BaseAppEntity {
   @Column()
   organizationId: string;
 
