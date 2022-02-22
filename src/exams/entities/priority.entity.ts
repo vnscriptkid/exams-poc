@@ -7,13 +7,13 @@ export class Priority {
   id: number;
 
   @Column({ nullable: true })
-  room_id: number; // FK
+  roomId: number; // FK
 
   @Column({ nullable: true })
-  exam_slot_id: number; // FK
+  examSlotId: number; // FK
 
   @Column({ nullable: true })
-  request_interval_id: number; // FK
+  requestIntervalId: number; // FK
 
   @Column({ type: 'text', nullable: true })
   comment: string;
@@ -22,32 +22,32 @@ export class Priority {
   order: number;
 
   @Column({ type: 'boolean', nullable: true })
-  exact_time: boolean;
+  exactTime: boolean;
 
   @Column({ type: 'boolean', nullable: true })
-  strict_date: boolean;
+  strictDate: boolean;
 
   @Column({ type: 'boolean', nullable: true })
-  strict_time: boolean;
+  strictTime: boolean;
 
   @Column({ nullable: true })
-  exact_start_time: number;
+  exactStartTime: number;
 
   @Column({ nullable: true })
-  exact_end_time: number;
+  exactEndTime: number;
 
-  // DIRTY FIX
+  // TODO: change to date type instead
   @Column({ nullable: true })
-  target_date: string;
-
-  @Column()
-  created_at: number;
-
-  @Column()
-  updated_at: number;
+  targetDate: string;
 
   @Column({ nullable: true })
-  deleted_at: number;
+  createdAt: number;
+
+  @Column({ nullable: true })
+  updatedAt: number;
+
+  @Column({ nullable: true })
+  deletedAt: number;
 
   // RELATIONSHIPS
   @ManyToOne(() => Exam, (exam) => exam.priorities)
