@@ -22,6 +22,7 @@ import { Exam } from './exams/entities/exam.entity';
       synchronize: true,
       entities: [Exam, RoomBooking, ExamSchedule],
       namingStrategy: new SnakeNamingStrategy(),
+      logging: true,
     }),
     ExamsModule,
     RoomBookingsModule,
