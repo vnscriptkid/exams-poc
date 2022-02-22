@@ -8,6 +8,10 @@
 - https://dev.to/yoshi_yoshi/typeorm-query-builder-with-subquery-490c
 - https://www.youtube.com/watch?v=pf2e_bgcHbA
 
+## virtual fields
+
+- https://pietrzakadrian.com/blog/virtual-column-solutions-for-typeorm
+
 ## TODOS
 
 ## sqls
