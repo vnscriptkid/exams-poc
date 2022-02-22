@@ -1,14 +1,31 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { PriorityDto } from './dtos/priority.dto';
+import { CreatePriorityDto } from './dtos/create-priority.dto';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 import { PrioritiesService } from './priorities.service';
+import { Serialize } from 'src/common/interceptors/serialize.interceptor';
 
-@Controller('exams/:id')
+@Controller('exams/:id/priorities')
 export class ExamPrioritiesController {
   constructor(private readonly prioritiesService: PrioritiesService) {}
 
-  @Get('priorities')
-  getExamPriorities(@Param('id') examId: number) {
-    console.log({ examId });
+  @Serialize(PriorityDto)
+  @Get()
+  async getExamPriorities(@Param('id') examId: number) {
+    return await this.prioritiesService.findForExam(examId);
+  }
 
-    return this.prioritiesService.findPrioritiesForExam(examId);
+  @Post()
+  @Serialize(PriorityDto)
+  createPriorityForExam(
+    @Param('id') examId: number,
+    @CurrentUser() user: any,
+    @Body() createPriorityDto: CreatePriorityDto,
+  ) {
+    return this.prioritiesService.createForExam(
+      examId,
+      user.organizationId,
+      createPriorityDto,
+    );
   }
 }

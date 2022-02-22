@@ -190,6 +190,6 @@ export class Exam {
   @OneToOne(() => ExamSchedule, (examSchedule) => examSchedule.exam)
   examSchedule: ExamSchedule;
 
-  @OneToMany(() => Priority, (priority) => priority.exam, { nullable: true })
+  @OneToMany(() => Priority, (priority) => priority.exam)
   priorities: Priority[];
 }

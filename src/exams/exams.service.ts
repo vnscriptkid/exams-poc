@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Exam } from './entities/exam.entity';
@@ -13,6 +13,20 @@ export class ExamsService {
     return this.examRepository.findOne(id, {
       relations: ['children', 'priorities'],
     });
+  }
+
+  findByIdAndOrgId(examId: number, organizationId: string) {
+    return this.examRepository.findOne({
+      where: { id: examId, organizationId },
+    });
+  }
+
+  async findByIdAndOrgIdThrow(examId: number, organizationId: string) {
+    const exam = await this.findByIdAndOrgId(examId, organizationId);
+
+    if (!exam) throw new NotFoundException(`Exam not found.`);
+
+    return exam;
   }
 
   findAllByOrgId(organizationId: string) {
